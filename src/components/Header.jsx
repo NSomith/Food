@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from './img/logo.png'
+import Avatar from './img/avatar.png'
 import { MdShoppingBasket } from "react-icons/md";
 
 const Header = () => {
@@ -12,7 +13,7 @@ const Header = () => {
                     <p className='text-headingColor text-xl font-bold'>City</p>
                 </div>
 
-                <div className='flex items-center'>
+                <div className='flex items-center '>
                     <ul className='flex items-center  gap-8'>
                         <li className='text-base text-textColor hover:text-headingColor duration-100
                     transition-all ease-in-out cursor-pointer'>Home</li>
@@ -30,6 +31,8 @@ const Header = () => {
                             <p className='text-xs text-white font-semibold'>2</p>
                         </div>
                     </div>
+
+                    <img src={Avatar} className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl' alt="avatarimage" />
                 </div>
             </div>
 

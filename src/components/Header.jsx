@@ -1,7 +1,8 @@
 import React from 'react'
-import logo from './img/logo.png'
-import Avatar from './img/avatar.png'
+import logo from '../img/logo.png'
+import Avatar from '../img/avatar.png'
 import { MdShoppingBasket } from "react-icons/md";
+import { motion } from 'framer-motion';
 
 const Header = () => {
     return (
@@ -32,7 +33,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <img src={Avatar} className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl' alt="avatarimage" />
+                    <motion.img whileTap={{scale:0.6}} src={Avatar} className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer' alt="avatarimage" />
                 </div>
             </div>
 

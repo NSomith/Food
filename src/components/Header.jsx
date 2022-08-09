@@ -3,16 +3,17 @@ import logo from '../img/logo.png'
 import Avatar from '../img/avatar.png'
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
         <header className='fixed w-screen z-50 p-6 px-16'>
             {/* desktop and tab  */}
             <div className=' hidden md:flex w-full  h-full items-center justify-between'>
-                <div className='flex items-center gap-2'>
+                <Link to={'/'} className='flex items-center gap-2'>
                     <img src={logo} alt="logo" className='w-10 object-cover' />
                     <p className='text-headingColor text-xl font-bold'>City</p>
-                </div>
+                </Link>
 
                 <div className='flex items-center '>
                     <ul className='flex items-center  gap-8'>

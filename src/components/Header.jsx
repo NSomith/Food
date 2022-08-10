@@ -4,8 +4,17 @@ import Avatar from '../img/avatar.png'
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { app } from '../firebase.config';
 
 const Header = () => {
+
+    const firebaseauth = getAuth(app)
+    const provider = new GoogleAuthProvider()
+    const login = async () => {
+        const response = await signInWithPopup(firebaseauth, provider)
+        console.log(response);
+    }
     return (
         <header className='fixed w-screen z-50 p-6 px-16'>
             {/* desktop and tab  */}
@@ -34,7 +43,13 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <motion.img whileTap={{scale:0.6}} src={Avatar} className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer' alt="avatarimage" />
+                    <motion.img
+                        whileTap={{ scale: 0.6 }}
+                        src={Avatar}
+                        className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer'
+                        alt="avatarimage"
+                        onClick={login}
+                    />
                 </div>
             </div>
 

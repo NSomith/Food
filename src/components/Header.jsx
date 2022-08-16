@@ -6,15 +6,26 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { app } from '../firebase.config';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
 const Header = () => {
 
     const firebaseauth = getAuth(app)
     const provider = new GoogleAuthProvider()
+
+    const[{user},dispatch] = useStateValue()
+
+    console.log(dispatch);
     
     const login = async () => {
-        const response = await signInWithPopup(firebaseauth, provider)
-        console.log(response);
+        const {user:{refreshToken,providerData}} = await signInWithPopup(firebaseauth, provider)
+        // console.log(response);
+
+        dispatch({
+            type:actionType.SER_USER,
+            user: providerData[0]
+        })
     }
     return (
         <header className='fixed w-screen z-50 p-6 px-16'>

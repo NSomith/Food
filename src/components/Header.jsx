@@ -11,6 +11,7 @@ const Header = () => {
 
     const firebaseauth = getAuth(app)
     const provider = new GoogleAuthProvider()
+    
     const login = async () => {
         const response = await signInWithPopup(firebaseauth, provider)
         console.log(response);

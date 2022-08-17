@@ -14,18 +14,24 @@ const Header = () => {
     const firebaseauth = getAuth(app)
     const provider = new GoogleAuthProvider()
 
-    const[{user},dispatch] = useStateValue()
+    const [{ user }, dispatch] = useStateValue()
+    console.log(`this is ${JSON.stringify(user)}`);
+    // const lo = useStateValue()
 
-    console.log(dispatch);
-    
+
+    // console.log(lo);
+    // console.log(`userurl ${user.photoURL}`);
+
     const login = async () => {
-        const {user:{refreshToken,providerData}} = await signInWithPopup(firebaseauth, provider)
-        // console.log(response);
+        const { user: { refreshToken, providerData } } = await signInWithPopup(firebaseauth, provider)
+        console.log(providerData[0]);
 
         dispatch({
-            type:actionType.SER_USER,
+            type: actionType.SER_USER,
             user: providerData[0]
         })
+
+        localStorage.setItem('user',JSON.stringify(providerData[0]))
     }
     return (
         <header className='fixed w-screen z-50 p-6 px-16'>
@@ -56,9 +62,10 @@ const Header = () => {
                     </div>
 
                     <motion.img
+                        // referrerPolicy="no-referrer"
                         whileTap={{ scale: 0.6 }}
-                        src={Avatar}
-                        className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer'
+                        src={user? user.photoURL : Avatar}
+                        className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
                         alt="avatarimage"
                         onClick={login}
                     />

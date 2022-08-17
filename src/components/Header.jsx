@@ -16,10 +16,10 @@ const Header = () => {
 
     const [{ user }, dispatch] = useStateValue()
     console.log(`this is ${JSON.stringify(user)}`);
-    // const lo = useStateValue()
+    const lo = useStateValue()
 
 
-    // console.log(lo);
+    console.log(lo);
     // console.log(`userurl ${user.photoURL}`);
 
     const login = async () => {
@@ -28,8 +28,16 @@ const Header = () => {
 
         dispatch({
             type: actionType.SER_USER,
-            user: providerData[0]
+            user: providerData[0] 
         })
+
+        /*
+        users spelling should be same as action.users
+        return {
+                ...state,
+                user: action.users
+            };
+        */
 
         localStorage.setItem('user',JSON.stringify(providerData[0]))
     }

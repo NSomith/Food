@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../img/logo.png'
 import Avatar from '../img/avatar.png'
-import { MdShoppingBasket } from "react-icons/md";
+import { MdShoppingBasket, MdAdd, MdLogout } from "react-icons/md";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
@@ -15,6 +15,7 @@ const Header = () => {
     const provider = new GoogleAuthProvider()
 
     const [{ user }, dispatch] = useStateValue()
+
     console.log(`this is ${JSON.stringify(user)}`);
     const lo = useStateValue()
 
@@ -23,23 +24,25 @@ const Header = () => {
     // console.log(`userurl ${user.photoURL}`);
 
     const login = async () => {
-        const { user: { refreshToken, providerData } } = await signInWithPopup(firebaseauth, provider)
-        console.log(providerData[0]);
+        if (!user) {
+            const { user: { refreshToken, providerData } } = await signInWithPopup(firebaseauth, provider)
+            console.log(providerData[0]);
 
-        dispatch({
-            type: actionType.SER_USER,
-            user: providerData[0] 
-        })
+            dispatch({
+                type: actionType.SER_USER,
+                user: providerData[0]
+            })
 
-        /*
-        users spelling should be same as action.users
-        return {
-                ...state,
-                user: action.users
-            };
-        */
+            /*
+            users spelling should be same as action.users
+            return {
+                    ...state,
+                    user: action.users
+                };
+            */
 
-        localStorage.setItem('user',JSON.stringify(providerData[0]))
+            localStorage.setItem('user', JSON.stringify(providerData[0]))
+        }
     }
     return (
         <header className='fixed w-screen z-50 p-6 px-16'>
@@ -69,14 +72,28 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <motion.img
-                        // referrerPolicy="no-referrer"
-                        whileTap={{ scale: 0.6 }}
-                        src={user? user.photoURL : Avatar}
-                        className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
-                        alt="avatarimage"
-                        onClick={login}
-                    />
+                    <div className='relative'>
+                        <motion.img
+                            // referrerPolicy="no-referrer"
+                            whileTap={{ scale: 0.6 }}
+                            src={user ? user.photoURL : Avatar}
+                            className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
+                            alt="avatarimage"
+                            onClick={login}
+                        />
+
+                        <div className='w-40 bg-gray-50 shadow-xl absolute rounded-lg flex flex-col px-4 py-2 top-12 right-0'  >
+                            {user && user.email === "ningombamsomith@gmail.com" && (
+                                <Link to={'/createitem'}>
+                                    <p className='px-4 py-2 flex items-center gap-3 cursor-pointer 
+                                hover:bg-slate-100 transition-all duration-100 ease-in-out'>New Item <MdAdd /></p>
+                                </Link>
+                            )}
+                            <p className='px-4 py-2 flex items-center gap-3 cursor-pointer 
+                            hover:bg-slate-100 transition-all duration-100 ease-in-out'>Log Out <MdLogout /></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

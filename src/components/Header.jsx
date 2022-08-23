@@ -49,6 +49,16 @@ const Header = () => {
             setisMenu(!isMenu)
         }
     }
+
+    const logout = () => {
+        setisMenu(false)
+        localStorage.clear()
+        dispatch({
+            type: actionType.SER_USER,
+            user: null
+        })
+    }
+
     return (
         <header className='fixed w-screen z-50 p-3 px-9 md:p-6 md:px-16'>
             {/* desktop and tab  */}
@@ -79,7 +89,7 @@ const Header = () => {
 
                     <div className='relative'>
                         <motion.img
-                            // referrerPolicy="no-referrer"
+                            referrerPolicy="no-referrer"
                             whileTap={{ scale: 0.6 }}
                             src={user ? user.photoURL : Avatar}
                             className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
@@ -97,7 +107,7 @@ const Header = () => {
                                         </Link>
                                     )}
                                     <p className='px-4 py-2 flex items-center gap-3 cursor-pointer 
-                                            hover:bg-slate-100 transition-all duration-100 ease-in-out'>Log Out <MdLogout /></p>
+                                            hover:bg-slate-100 transition-all duration-100 ease-in-out' onClick={logout}>Log Out <MdLogout /></p>
                                 </motion.div>
                             )
                         }
@@ -108,36 +118,56 @@ const Header = () => {
 
             {/* for mobile */}
             <div className='flex justify-between md:hidden w-full  h-full  '>
+
+
+                <div className='relative flex items-center justify-center'>
+                    <MdShoppingBasket className='text-textColor text-2xl ml-8 cursor-pointer' />
+                    <div className='absolute -top-2 left-10 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
+                        <p className='text-xs text-white font-semibold'>2</p>
+                    </div>
+                </div>
+
                 <Link to={'/'} className='flex items-center gap-2'>
                     <img src={logo} alt="logo" className='w-10 object-cover' />
                     <p className='text-headingColor text-xl font-bold'>City</p>
                 </Link>
 
                 <div className='relative'>
-                        <motion.img
-                            // referrerPolicy="no-referrer"
-                            whileTap={{ scale: 0.6 }}
-                            src={user ? user.photoURL : Avatar}
-                            className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
-                            alt="avatarimage"
-                            onClick={login}
-                        />
+                    <motion.img
+                        referrerPolicy="no-referrer"
+                        whileTap={{ scale: 0.6 }}
+                        src={user ? user.photoURL : Avatar}
+                        className='w-10 ml-3 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
+                        alt="avatarimage"
+                        onClick={login}
+                    />
 
-                        {
-                            isMenu && (
-                                <motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} className='w-40 bg-gray-50 shadow-xl absolute rounded-lg flex flex-col px-4 py-2 top-12 right-0'  >
-                                    {user && user.email === "ningombamsomith@gmail.com" && (
-                                        <Link to={'/createitem'}>
-                                            <p className='px-4 py-2 flex items-center gap-3 cursor-pointer 
+                    {
+                        isMenu && (
+                            <motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} className='w-40 bg-gray-50 shadow-xl absolute rounded-lg flex flex-col px-4 py-2 top-12 right-0'  >
+                                {user && user.email === "ningombamsomith@gmail.com" && (
+                                    <Link to={'/createitem'}>
+                                        <p className='px-4 py-2 flex items-center gap-3 cursor-pointer 
                                                  hover:bg-slate-100 transition-all duration-100 ease-in-out'>New Item <MdAdd /></p>
-                                        </Link>
-                                    )}
-                                    <p className='px-4 py-2 flex items-center gap-3 cursor-pointer 
-                                            hover:bg-slate-100 transition-all duration-100 ease-in-out'>Log Out <MdLogout /></p>
-                                </motion.div>
-                            )
-                        }
-                    </div>
+                                    </Link>
+                                )}
+                                <ul className='flex flex-col  '>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100
+                    transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'>Home</li>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100
+                    transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'>Menu</li>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100
+                    transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'>About Us</li>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100
+                    transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'>Service</li>
+                                </ul>
+                                <p className='m-2 p-2 rounded-md shadow-md flex items-center justify-center bg-gray-100 gap-3 cursor-pointer 
+                                            hover:bg-slate-300 transition-all duration-100 ease-in-out' onClick={logout}>Log Out <MdLogout /></p>
+                            </motion.div>
+                        )
+                    }
+
+                </div>
             </div>
         </header>
     )

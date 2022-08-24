@@ -6,10 +6,12 @@
 
 body{
     font-family: sans-serif;
+
 }
 
 html,body{
     scroll-behavior: smooth;
+    overflow-x: hidden
 }
 
 @tailwind base;

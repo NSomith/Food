@@ -10,3 +10,13 @@ export const icecreamimg = [
     {id:4,name:'IceCream',decp:'Choco',price:'$5.2',imgsrc:Fi1},
 
 ]
+
+export const categories = [
+    {id:1,name:"Chicken",urlParamName:"chicken"},
+    {id:2,name:"Curry",urlParamName:"curry"},
+    {id:3,name:"Rice",urlParamName:"rice"},
+    {id:4,name:"Fish",urlParamName:"fish"},
+    {id:5,name:"Fruits",urlParamName:"fruits"},
+    {id:6,name:"IceCream",urlParamName:"icecream"},
+    {id:6,name:"SoftDrinks",urlParamName:"drinks"}
+]

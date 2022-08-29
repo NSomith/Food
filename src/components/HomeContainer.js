@@ -21,10 +21,10 @@ function HomeContainer() {
             <div className=' flex-1 h-487 flex items-center relative'>
                 <img src={HeroBg} alt="dsf" className='h-370 w-full lg:w-auto ml-auto lg:h-487' />
 
-                <div className='w-full h-full absolute  flex items-center justify-center lg:px-3 lg:gap-y-2  md:gap-y-10 gap-10 flex-wrap'>
+                <div className='w-full h-full absolute  flex items-center justify-center gap-2 flex-wrap '>
                     {
                         icecreamimg.map((n) => (
-                            <div key={n.id} className='w-190 p-4 bg-cardOverlay backdrop-blur-md flex items-center justify-center flex-col'>
+                            <div key={n.id} className='w-190  bg-cardOverlay backdrop-blur-md flex items-center justify-center flex-col mt-10'>
                                 <img src={n.imgsrc} alt="I1.png" className='w-40 -mt-20' />
                                 <p className='text-base font-semibold text-textColor'>{n.name}</p>
                                 <p><span className='text-red-500'>$</span>{n.price}</p>

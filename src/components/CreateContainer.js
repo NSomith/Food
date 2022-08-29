@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
-import { MdFastfood } from 'react-icons/md'
+import { MdFastfood, MdCloudUpload } from 'react-icons/md'
 import { categories } from '../utils/data'
 import Loader from './Loader'
 
@@ -63,7 +63,22 @@ const CreateContainer = () => {
         <div className='group flex justify-center items-center flex-col rounded-lg
         border-2 border-dotted border-gray-300 w-full h-225 md:h-420 cursor-pointer
         '>
-          <Loader/>
+          {isLoading ? <Loader /> : <>
+            {
+              !imageAsset ?
+                <>
+                  <label className='w-full h-full flex flex-col items-center justify-center cursor-pointer'>
+                    <div className='w-full h-full flex flex-col items-center justify-center '>
+                      <MdCloudUpload className='text-gray-400 text-3xl hover:text-gray-700' />
+                      <p className='text-gray-400 text-3xl hover:text-gray-700'>Click here to upload img</p>
+
+                    </div>
+
+                  </label>
+                </> : <></>
+            }
+
+          </>}
         </div>
 
       </div>

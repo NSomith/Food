@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
-import { MdFastfood, MdCloudUpload } from 'react-icons/md'
+import { MdFastfood, MdCloudUpload, MdDelete, MdFoodBank,MdAttachMoney} from 'react-icons/md'
 import { categories } from '../utils/data'
 import Loader from './Loader'
 
@@ -16,9 +16,17 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
+  const upladimage = () => {
+
+  }
+
+  const deleteimage = () => {
+
+  }
+
   return (
-    <div className='w-full min-h-screen flex items-center justify-center'>
-      <div className='w-[90%] md:w-[75%] border border-gray-300 rounded-lg p-4
+    <div className='w-full min-h-screen flex items-center justify-center '>
+      <div className='w-[90%] mt-1 md:w-[75%] border border-gray-300 rounded-lg p-4
       flex flex-col items-center justify-center gap-2
       '>
         {
@@ -43,7 +51,7 @@ const CreateContainer = () => {
             className='w-full h-full text-lg font-semibold bg-transparent outline-none border-none placeholder:text-red-200 text-textColor' />
         </div>
 
-        <div className='w-full'>
+        <div className='w-full  '>
           <select onChange={(e) => setCategory(e.target.value)} className='outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer'>
             <option value={"others"} className='bg-white'>
               Select categories
@@ -74,11 +82,68 @@ const CreateContainer = () => {
 
                     </div>
 
+                    <input
+                      type="file"
+                      name='uploadimage'
+                      accept='image/*'
+                      onChange={upladimage}
+                      className='w-0 h-0 '
+                    />
+
                   </label>
-                </> : <></>
+                </>
+                :
+                <>
+                  <div className='relative h-full '>
+                    <img src={imageAsset} alt="uploaded image" className='w-full h-full object-cover' />
+                    <button
+                      className='absolute bottom-3 
+                      
+                    right-3 p-3 rounded-full 
+                    text-xl 
+                    cursor-pointer outline-none 
+                    hover:shadow-md duration-100 ease-in-out transition-all
+                    '
+                      onClick={deleteimage}
+                    >
+                      <MdDelete className='text-white' />
+                    </button>
+                  </div>
+                </>
             }
 
           </>}
+        </div>
+
+        <div className='w-full flex flex-col md:flex-row items-center gap-3'>
+          <div className='w-full py-2 border-b border-gray-300 flex items-center gap-2'>
+            <MdFoodBank className='text-gray-700 text-2xl' />
+            <input 
+            type="text" 
+            value={calories}
+            onChange = {(e)=>setCalories(e.target.value)}
+            placeholder='Calories' 
+            required className='w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400' />
+          </div>
+
+          <div className='w-full py-2 border-b border-gray-300 flex items-center gap-2'>
+            <MdAttachMoney className='text-gray-700 text-2xl' />
+            <input 
+            type="text" 
+            value={price}
+            onChange ={(e)=>setPrice(e.target.value)}
+            placeholder='Price' 
+            required className='w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400' />
+          </div>
+        </div>
+
+        <div className='flex items-center w-full'>
+          <button 
+          type='button'
+          className='ml-0 md:ml-auto  w-full md:w-auto border-none outline-none bg-emerald-300 px-12 py-2 rounded-lg text-lg text-white font-semibold'
+          >
+            Save
+          </button>
         </div>
 
       </div>

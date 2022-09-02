@@ -5,7 +5,7 @@ import { icecreamimg } from '../utils/data'
 
 function HomeContainer() {
     return (
-        <section className='grid grid-cols-1 md:grid-cols-2 gap-3 w-full ' id='home'>
+        <section className='grid grid-cols-1 md:grid-cols-2 gap-3 w-full' id='home'>
             <div className='py-2 flex-1 flex flex-col items-center md:items-start justify-center gap-6'>
                 <div className='flex items-center gap-2 justify-center p-2 rounded-full bg-orange-100'>
                     <p className='text-base text-orange-300 font-semibold'>Bike Delivery</p>

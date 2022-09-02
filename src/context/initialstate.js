@@ -6,5 +6,6 @@ import { fetchUser } from "../utils/fetchLocalStroageData"
 const userinfo = fetchUser()
 
 export const initialstate = {
-    user:userinfo  
+    user:userinfo,
+    foodItems: null  
 }

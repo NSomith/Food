@@ -32,7 +32,7 @@ const Header = () => {
             console.log(providerData[0]);
 
             dispatch({
-                type: actionType.SER_USER,
+                type: actionType.SET_USER,
                 user: providerData[0]
             })
 
@@ -54,7 +54,7 @@ const Header = () => {
         setisMenu(false)
         localStorage.clear()
         dispatch({
-            type: actionType.SER_USER,
+            type: actionType.SET_USER,
             user: null
         })
     }

@@ -5,18 +5,24 @@ import { MdFastfood, MdCloudUpload, MdDelete, MdFoodBank, MdAttachMoney } from '
 import { categories } from '../utils/data'
 import Loader from './Loader'
 import { storage } from '../firebase.config'
+import { getAllfoodItems, saveItems } from '../utils/firebaseFunctions'
+import { useStateValue } from '../context/StateProvider'
+import { actionType } from '../context/reducer'
 
 const CreateContainer = () => {
 
   const [title, setTitle] = useState('')
   const [calories, setCalories] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState('Select Category')
   const [imageAsset, setImageAsset] = useState(null)
   const [fields, setFields] = useState(false)
   const [alertStatus, setAlertStatus] = useState('danger')
   const [msg, setMsg] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const [{foodItems},dispatch] = useStateValue()
+
 
   const upladimage = (e) => {
     setIsLoading(true)
@@ -66,7 +72,72 @@ const CreateContainer = () => {
   }
 
   const savedetails = () => {
+    setIsLoading(true)
+    try {
 
+      if ((!title || !imageAsset || !calories || !category || !price)) {
+        setFields(true)
+        setMsg("All fields must be entered")
+        setAlertStatus("danger")
+        setTimeout(() => {
+          setFields(false)
+          setIsLoading(false)
+        }, 4000)
+      } else {
+
+        const data = {
+          id: `${Date.now()}`,
+          title: title,
+          imageUrl: imageAsset,
+          category: category,
+          calories: calories,
+          qty: 1,
+          price: price
+        }
+        saveItems(data)
+
+        setIsLoading(false)
+        setFields(true)
+        setMsg('Data Uploaded sucessefuly')
+        setAlertStatus('success')
+        cleardata()
+        setTimeout(() => {
+          setFields(false)
+
+        }, 4000)
+
+        fetchData()
+
+      }
+
+    } catch (err) {
+      console.log(err);
+      setFields(true)
+      setMsg("Error while uploading")
+      setAlertStatus("danger")
+      setTimeout(() => {
+        setFields(false)
+        setIsLoading(false)
+      }, 4000)
+    }
+  }
+
+  const cleardata = () => {
+    setCalories('')
+    setTitle('')
+    setImageAsset(null)
+    setPrice('')
+    setCategory('Select Catogary')
+  }
+
+  const fetchData = async () => {
+    await getAllfoodItems().then((data) => {
+      console.log(data);
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data
+      })
+    })
   }
 
   return (
@@ -96,9 +167,14 @@ const CreateContainer = () => {
         </div>
 
         <div className='w-full  '>
-          <select onChange={(e) => setCategory(e.target.value)} className='outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer'>
+          <select
+            value={category}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setCategory(e.target.value)
+            }} className='outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer'>
             <option value={"others"} className='bg-white'>
-              Select categories
+              {category}
             </option>
             {categories && categories.map((item) => (
               <option

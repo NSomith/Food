@@ -7,14 +7,15 @@ import { useStateValue } from '../context/StateProvider'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import MenuContainer from './MenuContainer'
+import CartContainer from './CartContainer'
 
 const MainContainer = () => {
 
-  const [{ foodItems }, dispatch] = useStateValue()
+  const [{ foodItems,cartShow}, dispatch] = useStateValue()
 
   const [scrollValue, setscrollValue] = useState(0)
 
-  useEffect(() => { }, [scrollValue])
+  useEffect(() => { }, [scrollValue,cartShow])
 
   return (
     <div className='w-full h-auto flex flex-col items-center justify-center'>
@@ -28,7 +29,7 @@ const MainContainer = () => {
 
           <div className=' gap-3 items-center flex '>
             <motion.div whileTap={{ scale: 0.7 }} className='w-8 h-8 rounded-lg bg-orange-600 cursor-pointer 
-            hover:bg-orange-400 transition-all duration-100 ease-in-out 
+            hover:bg-orange-400 
             hover:shadow-xl flex items-center justify-center'
               onClick={() => setscrollValue(-200)}
             >
@@ -36,7 +37,7 @@ const MainContainer = () => {
 
             </motion.div>
             <motion.div whileTap={{ scale: 0.7 }} className='w-8 h-8 rounded-lg bg-orange-600 cursor-pointer 
-            hover:bg-orange-400 transition-all duration-100 ease-in-out 
+            hover:bg-orange-400  
             hover:shadow-xl flex items-center justify-center'
               onClick={() => setscrollValue(200)}>
               <MdChevronRight className='text-lg text-white' />
@@ -49,7 +50,8 @@ const MainContainer = () => {
           flag={true} data={foodItems?.filter((n) => n.category === 'fruits')} />
       </section>
 
-      <MenuContainer/>
+      {/* <MenuContainer/> */}
+      {cartShow && (<CartContainer/> )}
     </div>
   )
 }
